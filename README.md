@@ -1,2 +1,2 @@
 # P2PChatApp
-EC530 Peer to Peer Chat Application
+EC530 User to User Chat Application
