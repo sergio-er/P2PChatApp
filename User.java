@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.Socket;
 
 public class User {
     public static void main(String[] arg) throws Exception {
@@ -18,6 +19,22 @@ public class User {
         System.out.println(" peer to receive messages from (s to skip):");
         String input = bufferedReader.readLine();
         String[] inputValues = input.split(" ");
+
+        if (!input.equals("s")) for (int i = 0; i< inputValues.length; i++){
+            String[] address = inputValues[i].split(":");
+            Socket socket = null;
+            try {
+                socket = new Socket(address[0], Integer.valueOf(address[1]));
+                new PeerThread(socket).start();
+            } catch (Exception e) {
+                if (socket !=null) socket.close();
+                else System.out.println("Invalid input. Skipping to next step.");//change on later implementation
+            }
+        }
+        communicate(bufferedReader,username,serverThread);
+    }
+
+    public void communicate(BufferedReader bufferedReader, String username, ServerThread serverThread){
 
     }
 }
