@@ -1,6 +1,7 @@
+import javax.json.Json;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.net.Socket;
 
 public class User {
@@ -35,6 +36,24 @@ public class User {
     }
 
     public void communicate(BufferedReader bufferedReader, String username, ServerThread serverThread){
-
+        try{
+            System.out.println(">You can now communicate (e to exit, c to change)");
+            boolean flag = true;
+            while (flag){
+                String message = bufferedReader.readLine();
+                if (message.equals("e")){ //change this method later
+                    flag = false;
+                    break;
+                } else if (message.equals("c")) {
+                    updateListenToPeers(bufferedReader, username, serverThread);
+                } else {
+                    StringWriter stringWriter = new StringWriter();
+                    Json.createWriter(stringWriter).writeObject(Json.createObjectBuilder().add("username", username).add("message", message).build());
+                    serverThread.sendMessage(stringWriter.toString());
+                }
+            }
+            System.exit(0);
+        } catch (Exception e){}
     }
+
 }

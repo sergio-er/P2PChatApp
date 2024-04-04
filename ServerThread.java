@@ -10,7 +10,20 @@ public class ServerThread extends Thread {
         serverSocket = new ServerSocket(Integer.valueOf(portNumb));//this will change with online server
     }
     public void run(){
+        try{
+            while (true) {
+                ServerThreadThread serverThreadThread = new ServerThreadThread(serverSocket.accept(), this);
+                serverThreadThreads.add(serverThreadThread);
+                serverThreadThread.start();
+            }
+        } catch (Exception e) {e.printStackTrace();}
 
+    }
+    void sendMessage(String message){
+        try{
+            serverThreadThreads.forEach(t-> t.getPrintWriter().println(message));
+        } catch (Exception e) {
+            e.printStackTrace(); }
     }
     public Set<ServerThreadThread> getServerThreadThreads(){return serverThreadThreads;}
 }
