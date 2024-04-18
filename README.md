@@ -1,2 +1,2 @@
 # P2PChatApp
-EC530 User to User Chat Application
+EC530 classes.User to classes.User Chat Application

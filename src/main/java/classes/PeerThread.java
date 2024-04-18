@@ -1,3 +1,5 @@
+package classes;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import java.io.BufferedReader;
